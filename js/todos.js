@@ -5,38 +5,37 @@ const todoList = document.querySelector(".todo-list");
 let todos = [];
 
 const removeEle = (e) => {
-  const target = e.target.value;
+  const target = e.target;
   const pNode = target.parentNode;
   pNode.remove();
-  todos.filter((todo) => todo.id !== pNode.id);
+  todos = todos.filter((todo) => todo.id !== parseInt(pNode));
 };
 
-const paintTodo = (value) => {
+function paintTodo(value) {
   const li = document.createElement("li");
   li.id = value.id;
   const span = document.createElement("span");
   span.innerText = `${value.text}`;
-  const btn = document.createElement("button");
-  btn.innerText = "x";
-  btn.addEventListener("click", removeEle);
+  const remBtn = document.createElement("button");
+  remBtn.innerText = `x`;
+  remBtn.addEventListener("click", removeEle);
 
   li.appendChild(span);
-  li.appendChild(btn);
+  li.appendChild(remBtn);
   todoList.appendChild(li);
-};
+}
 
-const handleTodos = (e) => {
+function handleTodos(e) {
   e.preventDefault();
-
   const val = todoInput.value;
+  todoInput.value = "";
   const newObj = {
     id: Date.now(),
     text: val,
   };
 
-  todoInput.value = "";
   todos.push(newObj);
   paintTodo(newObj);
-};
+}
 
 todoForm.addEventListener("submit", handleTodos);
