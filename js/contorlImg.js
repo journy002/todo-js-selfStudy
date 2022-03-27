@@ -1,19 +1,24 @@
 const fileInput = document.getElementById("fileInput");
-const fileUpload = document.querySelector(".fileUpload");
+const fileBtn = document.querySelector(".file-btn");
+const fileContainer = document.querySelector(".file-container");
 
-fileUpload.addEventListener("click", () => {
+fileBtn.addEventListener("click", () => {
   fileInput.click();
 });
 
 fileInput.addEventListener("change", function (e) {
-  let file = e.target.files[0];
-  let reader = new FileReader();
+  const file = e.target.files[0];
+  const reader = new FileReader();
   reader.readAsDataURL(file);
   console.log(reader);
+  e.target.value = "";
   reader.onload = function () {
-    let photoFrame = document.createElement("div");
+    const photoFrame = document.createElement("div");
     photoFrame.style = `background: url(${reader.result}); background-size: cover`;
     photoFrame.className = "photoFrame";
-    document.getElementById("pictures").appendChild(photoFrame);
+    fileContainer.appendChild(photoFrame);
+    photoFrame.addEventListener("click", () => {
+      fileContainer.removeChild(photoFrame);
+    });
   };
 });
