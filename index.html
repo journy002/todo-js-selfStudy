@@ -13,21 +13,11 @@
         <input type="text" />
       </form>
       <ul class="todo-list"></ul>
-      <input
-        type="file"
-        id="real-input"
-        class="image_inputType_file"
-        accept="img/*"
-        required
-        multiple
-      />
-      <button class="browse-btn">사진 업로드</button>
-      <!-- 이미지 미리보기[S] -->
-      <h3>이미지 미리보기</h3>
-      <div id="imagePreview">
-        <img id="img" />
-      </div>
-      <!-- 이미지 미리보기[E] -->
+      <!-- 이미지 업로드[S] -->
+      <input type="file" id="fileInput" />
+      <button class="fileUpload">이미지 업로드</button>
+      <div id="pictures"></div>
+      <!-- 이미지 업로드[E] -->
     </div>
     <script src="./js/todos.js"></script>
     <script src="./js/contorlImg.js"></script>

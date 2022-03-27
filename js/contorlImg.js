@@ -1,41 +1,19 @@
-const browseBtn = document.querySelector(".browse-btn");
-const realInput = document.querySelector("#real-input");
-const imgPreview = document.getElementById("imagePreview");
+const fileInput = document.getElementById("fileInput");
+const fileUpload = document.querySelector(".fileUpload");
 
-browseBtn.addEventListener("click", () => {
-  realInput.click();
+fileUpload.addEventListener("click", () => {
+  fileInput.click();
 });
 
-function readInputFile(e) {
-  let sel_files = [];
-
-  sel_file = [];
-  imgPreview.remove();
-
-  let files = e.target.files;
-  let fileArr = Array.prototype.slice.call(files);
-  let index = 0;
-
-  fileArr.forEach(function (f) {
-    if (!f.type.match("image/.*")) {
-      alert("이미지 확장자만 가능");
-      return;
-    }
-
-    if (files.length < 11) {
-      sel_files.push(f);
-      let reader = new FileReader(); // study
-      reader.onload = function (e) {
-        let html = `<a id='img_id_${index}'> <img src=${e.target.result} data-file=${f.name} /> </a>`;
-        imgPreview.append(html);
-        index++;
-      };
-      reader.readAsDataURL(f); // study
-    }
-  });
-  if (files.length > 11) {
-    alert("최대 10장까지 업로드 할 수 있습니다.");
-  }
-}
-
-realInput.addEventListener("change", readInputFile);
+fileInput.addEventListener("change", function (e) {
+  let file = e.target.files[0];
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  console.log(reader);
+  reader.onload = function () {
+    let photoFrame = document.createElement("div");
+    photoFrame.style = `background: url(${reader.result}); background-size: cover`;
+    photoFrame.className = "photoFrame";
+    document.getElementById("pictures").appendChild(photoFrame);
+  };
+});
