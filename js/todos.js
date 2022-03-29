@@ -5,15 +5,17 @@ const todoList = document.querySelector(".todo-list");
 const TODOS_KEY = "todos";
 let todos = [];
 
-const saveData = (val) => {
-  localStorage.setItem(TODOS_KEY, JSON.stringify(val));
+const saveData = () => {
+  localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
 };
 
 const removeEle = (e) => {
   const target = e.target;
   const pNode = target.parentNode;
   pNode.remove();
-  todos = todos.filter((todo) => todo.id !== parseInt(pNode));
+
+  todos = todos.filter((todo) => todo.id !== parseInt(pNode.id));
+  saveData();
 };
 
 function paintTodo(value) {
@@ -41,7 +43,7 @@ function handleTodos(e) {
 
   todos.push(newObj);
   paintTodo(newObj);
-  saveData(todos);
+  saveData();
 }
 
 todoForm.addEventListener("submit", handleTodos);
